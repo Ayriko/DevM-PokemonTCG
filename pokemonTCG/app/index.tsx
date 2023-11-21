@@ -1,41 +1,20 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { useGetSets } from '../hooks/useGetSets'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useGetCards } from '../hooks/useGetCards'
+import { Pressable, View, Text } from 'react-native';
+import { Link } from 'expo-router';
+import { HomePage } from '../components/homePage';
+import { useFonts } from 'expo-font';
 
-// Create a client
-const queryClient = new QueryClient()
+export default function Page() {
+  const [fontsLoaded] = useFonts({
+    'Pokemon-Solid': require('../assets/fonts/pokemonsolid.ttf')
+  })
 
-export default function App() {
-
-  return (
-    // Provide the client to your App
-    <QueryClientProvider client={queryClient}>
-      <Sets />
-    </QueryClientProvider>
-  )
-}
-
-function Sets() {
-
-  // Query
-  const { data } = useGetCards();
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#7c91bd",
-      }}
-    >
-      <Text>{"Sets"}</Text>
-      <Text>{data?.length}</Text>
-      {data?.map((item) => (
-        <Text key={item.id}>{item.name}</Text>
-      ))}
+    <View>
+      <HomePage />
     </View>
-  )
+  );
 }

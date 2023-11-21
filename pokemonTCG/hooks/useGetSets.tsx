@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ApiClient } from "../api";
+import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
 
 export type ResponseItem = {
     id: string;
@@ -15,8 +16,8 @@ export type ResponseItem = {
 export type Response = ResponseItem[];
 
 export const useGetSets = () => {
-    return useQuery<Response>({
+    return useQuery<PokemonTCG.Set[]>({
         queryKey: ["sets"],
-        queryFn: ApiClient.getSets,
+        queryFn: PokemonTCG.getAllSets,
     });
 };
