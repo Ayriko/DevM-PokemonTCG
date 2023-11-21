@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { useGetSets } from '../hooks/useGetSets'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useGetCards } from '../hooks/useGetCards'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -19,7 +20,7 @@ export default function App() {
 function Sets() {
 
   // Query
-  const { data } = useGetSets();
+  const { data } = useGetCards();
 
   return (
     <View
@@ -31,6 +32,7 @@ function Sets() {
       }}
     >
       <Text>{"Sets"}</Text>
+      <Text>{data?.length}</Text>
       {data?.map((item) => (
         <Text key={item.id}>{item.name}</Text>
       ))}

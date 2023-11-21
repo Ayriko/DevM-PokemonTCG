@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { ApiClient } from "../api";
 
 export type ResponseItem = {
-    id?: string;
-    name?: string;
-    releaseDate?: string;
-    series?: string;
-    images?: {
-        symbol?: string,
-        logo?: string
+    id: string;
+    name: string;
+    releaseDate: string;
+    series: string;
+    images: {
+        symbol: string,
+        logo: string
     }
 };
 
