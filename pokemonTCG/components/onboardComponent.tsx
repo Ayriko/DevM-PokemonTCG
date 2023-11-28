@@ -2,7 +2,7 @@ import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
 
-export const OnboardC = () => {
+export const OnboardComponent = () => {
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -12,14 +12,14 @@ export const OnboardC = () => {
           </View>
           <View style={styles.buttonsColumn}>
             <Link href="/sets" asChild>
-                <TouchableOpacity style={styles.NextButton}>
+                <TouchableOpacity style={styles.nextButton}>
                     <Text style={styles.buttonText}>Découvrir les cartes</Text>
                 </TouchableOpacity>
             </Link>
           </View>
         </View>
         <View style={styles.imagesContainer}>
-          <Image source={require('../assets/Group29.png')} style={styles.largeImage} />
+          <Image source={require('../assets/trainers.png')} style={styles.largeImage} />
         </View>
       </View>
     );
@@ -70,7 +70,7 @@ export const OnboardC = () => {
       gap: 4,
       display: 'flex',
     },
-    NextButton: {
+    nextButton: {
       width: 328,
       height: 58,
       paddingLeft: 8,
