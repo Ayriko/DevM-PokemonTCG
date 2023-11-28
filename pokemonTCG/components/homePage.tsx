@@ -2,24 +2,25 @@ import { Link } from 'expo-router';
 import React, { ReactNode, FC } from 'react';
 import { View, Text, StyleSheet, Pressable, TextStyle } from 'react-native';
 import { CustomFont } from "./customFont";
+import Animated, { BounceOutUp } from 'react-native-reanimated';
 
 export const HomePage = () => {
     return (
-        <View style={styles.container}>
+        <Animated.View style={styles.container} exiting={BounceOutUp}>
             <View>
-            <Link href="/onboard" asChild>
+                <Link href="/onboard" asChild>
                     <Pressable>
                         <Text>
                             <CustomFont style={styles.whiteTextFont} font={ 'Pokemon-Solid'}>Poké</CustomFont>
                             <CustomFont style={styles.redText} font={ 'Pokemon-Solid'}>dex</CustomFont>
                         </Text>
                         <Text style={styles.whiteText}>
-                            Card Edition
+                            Cards Edition
                         </Text>
                     </Pressable>
                 </Link>
             </View>
-        </View>
+        </Animated.View>
     );
 };
 
@@ -42,13 +43,11 @@ const styles = StyleSheet.create({
     whiteTextFont: {
         color: 'white',
         fontSize: 50,
-        fontFamily: 'Pokemon-Solid',
         fontWeight: '400',
     },
     redText: {
         color: '#CD3131',
         fontSize: 50,
-        fontFamily: 'Pokemon-Solid',
         fontWeight: '400',
     },
 });

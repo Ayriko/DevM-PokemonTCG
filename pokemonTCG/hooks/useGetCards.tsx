@@ -42,7 +42,7 @@ export const useGetCardById = (id: string) => {
 }
 
 export const useGetCardBySet = (id: string) => {
-    const paramsV2: PokemonTCG.Parameter = { q: `set: { id:${id}}` };
+    const paramsV2: PokemonTCG.Parameter = { q: `set:${id}` };
 
     return useQuery<PokemonTCG.Card[]>({
         queryKey: ["cardBySet"],

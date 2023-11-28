@@ -2,15 +2,17 @@ module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: [['expo-router/babel'],
-    ["module:react-native-dotenv", {
-      "envName": "APP_ENV",
-      "moduleName": "@env",
-      "path": ".env",
-      "safe": false,
-      "allowUndefined": true,
-      "verbose": false
-    }],
-      'react-native-reanimated/plugin']
+    plugins: [
+      ['expo-router/babel'],
+      ["module:react-native-dotenv", {
+        "envName": "APP_ENV",
+        "moduleName": "@env",
+        "path": ".env",
+        "safe": false,
+        "allowUndefined": true,
+        "verbose": false
+      }],
+      ['react-native-reanimated/plugin']
+    ]
   };
 };

@@ -8,7 +8,7 @@ import {PokemonTCG} from "pokemon-tcg-sdk-typescript";
 
 preventAutoHideAsync();
 
-export default function Page() {
+export default function App() {
   const [fontsLoaded] = useFonts({
     'Pokemon-Solid': require('../assets/fonts/PokemonSolidNormal-xyWR.ttf'),
     'Poppins': require('../assets/fonts/Poppins-Regular.ttf')
