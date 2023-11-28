@@ -1,19 +1,7 @@
 import { Link } from 'expo-router';
 import React, { ReactNode, FC } from 'react';
 import { View, Text, StyleSheet, Pressable, TextStyle } from 'react-native';
-
-interface CustomTextProps {
-    children: ReactNode;
-    style?: TextStyle;
-}
-
-const CustomText: FC<CustomTextProps> = (props) => {
-    return (
-        <Text style={{ ...props.style, fontFamily: 'Pokemon-Solid' }}>
-            {props.children}
-        </Text>
-    );
-};
+import { CustomFont } from "./customFont";
 
 export const HomePage = () => {
     return (
@@ -22,8 +10,8 @@ export const HomePage = () => {
             <Link href="/onboard" asChild>
                     <Pressable>
                         <Text>
-                            <CustomText style={styles.whiteTextFont}>Poké</CustomText>
-                            <CustomText style={styles.redText}>dex</CustomText>
+                            <CustomFont style={styles.whiteTextFont} font={ 'Pokemon-Solid'}>Poké</CustomFont>
+                            <CustomFont style={styles.redText} font={ 'Pokemon-Solid'}>dex</CustomFont>
                         </Text>
                         <Text style={styles.whiteText}>
                             Card Edition
