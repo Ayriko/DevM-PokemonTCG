@@ -11,7 +11,7 @@ export const OnboardComponent = () => {
             <Text style={styles.smallText}>Il suffit de commencer à explorer le monde de Pokémon dès aujourd'hui !</Text>
           </View>
           <View style={styles.buttonsColumn}>
-            <Link href="/sets" asChild>
+            <Link href="/series" asChild>
                 <TouchableOpacity style={styles.nextButton}>
                     <Text style={styles.buttonText}>Découvrir les cartes</Text>
                 </TouchableOpacity>
