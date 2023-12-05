@@ -7,13 +7,6 @@ export default function TabLayout() {
     return (
         <Tabs>
             <Tabs.Screen
-                name="sets"
-                options={{
-                    title: "Sets",
-                    href: null
-                }}
-            />
-            <Tabs.Screen
                 name="series"
                 options={{
                     title: "Series",
@@ -28,6 +21,20 @@ export default function TabLayout() {
                     },
                 }}
             />
+          <Tabs.Screen
+            name="sets"
+            options={{
+              title: "Sets",
+              href: null
+            }}
+          />
+          <Tabs.Screen
+            name="cardsList"
+            options={{
+              title: "CardsList",
+              href: null
+            }}
+          />
             {/* <Tabs.Screen
                 name="cardsList"
                 options={{

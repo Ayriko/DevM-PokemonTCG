@@ -25,9 +25,8 @@ export const useGetSets = () => {
 };
 
 export const useGetSetsBySerieName = (search: string) => {
-    console.log(`series:${search}`)
     return useQuery<PokemonTCG.Set[]>({
-        queryKey: ["setsBySerie"],
+        queryKey: ["setsBySerie", search],
         queryFn: () => fetch(`https://api.pokemontcg.io/v2/sets?q=series:${search}`, { headers: new Headers({ 'x-api-key': POKEMONTCG_API_KEY }) })
           .then((res) => res.json())
           .then((res) => res.data),

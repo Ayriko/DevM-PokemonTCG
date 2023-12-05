@@ -9,7 +9,7 @@ import {
   ImageBackground, Pressable
 } from 'react-native'
 import React, { useState } from 'react'
-import { useGetSets, useGetSetsBySerieName } from '../../hooks/useGetSets'
+import { useGetSets } from '../../hooks/useGetSets'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PokemonTCG } from 'pokemon-tcg-sdk-typescript'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -45,9 +45,8 @@ const image = [
 ]
 
 function Series() {
-  const [search, setSearch] = useState("")
   const { data } = useGetSets()
-  // const {data: searchData} = useGetSetsBySerieName(search)
+
   const listOfSetsFiltered: PokemonTCG.Set[] | undefined = data?.filter((set) => set.series !== 'Other' && set.series !== 'POP' && set.series !== 'E-Card' && set.series !== 'NP')
   const listOfSetsBySeries: SetMap | undefined = listOfSetsFiltered?.reduce((acc: SetMap, curr) => {
     if (!acc[curr.series]) {
@@ -56,8 +55,6 @@ function Series() {
     acc[curr.series].push(curr);
     return acc;
   }, {});
-  // const {data: pouet} = useGetSetsBySerieName('Base')
-  // console.log(pouet)
 
   const styles = StyleSheet.create({
     container: {

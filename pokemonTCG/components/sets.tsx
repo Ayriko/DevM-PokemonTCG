@@ -12,7 +12,6 @@ import {
 import React from "react";
 import {useGetSetsBySerieName} from "../hooks/useGetSets";
 import {LinearGradient} from "expo-linear-gradient";
-import {CustomFont} from "./customFont";
 import {generateRandomNumber} from "../app/(tabs)/series";
 
 const image = [
@@ -28,7 +27,7 @@ const image = [
 
 export const SetsComponent = () => {
   const params = useLocalSearchParams() as { setName: string };
-  // console.log(params.setName)
+  console.log(params)
   const {data: setBySerie} = useGetSetsBySerieName(params.setName)
 
   const styles = StyleSheet.create({
@@ -86,6 +85,10 @@ export const SetsComponent = () => {
           data={setBySerie}
           renderItem={({item}) => (
             <View key={item.id}>
+              <Link href={{
+                pathname: "/cardsList",
+                params: { setId: item.id }
+              }} asChild>
               <TouchableOpacity>
                 <View style={styles.item}>
                   <ImageBackground
@@ -113,6 +116,7 @@ export const SetsComponent = () => {
                   </ImageBackground>
                 </View>
               </TouchableOpacity>
+              </Link>
             </View>
           )}
           keyExtractor={item => item.id}
