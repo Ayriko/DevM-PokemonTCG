@@ -6,7 +6,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ImageBackground, Text
+  ImageBackground, Pressable
 } from 'react-native'
 import React, {useState} from 'react'
 import {useGetSets, useGetSetsBySerieName} from '../hooks/useGetSets'
@@ -14,6 +14,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {PokemonTCG} from 'pokemon-tcg-sdk-typescript'
 import {LinearGradient} from 'expo-linear-gradient';
 import {CustomFont} from "../components/customFont";
+import { Link } from 'expo-router'
 
 // Create a client
 const queryClient = new QueryClient()
@@ -46,7 +47,7 @@ const image = [
 function Series() {
   const [search, setSearch] = useState("")
   const {data} = useGetSets()
-  const {data: searchData} = useGetSetsBySerieName(search)
+  // const {data: searchData} = useGetSetsBySerieName(search)
   const listOfSetsFiltered: PokemonTCG.Set[] | undefined = data?.filter((set) => set.series !== 'Other' && set.series !== 'POP' && set.series !== 'E-Card' && set.series !== 'NP')
   const listOfSetsBySeries: SetMap | undefined = listOfSetsFiltered?.reduce((acc: SetMap, curr) => {
     if (!acc[curr.series]) {
@@ -55,6 +56,8 @@ function Series() {
     acc[curr.series].push(curr);
     return acc;
   }, {});
+  // const {data: pouet} = useGetSetsBySerieName('Base')
+  // console.log(pouet)
 
   const styles = StyleSheet.create({
     container: {
@@ -111,7 +114,11 @@ function Series() {
           data={Object.keys(listOfSetsBySeries)}
           renderItem={({item}) => (
             <View key={item}>
-              <TouchableOpacity onPress={() => setSearch(item)}>
+              <Link href={{
+                pathname: "/sets",
+                params: {setName: item}
+              }} asChild>
+              <TouchableOpacity>
                 <View style={styles.item}>
                   <ImageBackground
                     imageStyle={{borderRadius: 20}} source={image[generateRandomNumber() - 1]} resizeMode="cover"
@@ -137,6 +144,7 @@ function Series() {
                           renderItem={({item}) => (
                             <Image
                               style={styles.image}
+                              resizeMode="contain"
                               source={{uri: item.images.symbol || 'default.png'}}
                             />
                           )}
@@ -147,6 +155,7 @@ function Series() {
                   </ImageBackground>
                 </View>
               </TouchableOpacity>
+              </Link>
             </View>
           )}
           keyExtractor={item => item}
@@ -156,13 +165,6 @@ function Series() {
   );
 }
 
-// function test(serieName: string) {
-//   console.log(serieName)
-//   console.log(generateRandomNumber())
-//   const {data} = useGetSetsBySerieName({ q: `series: ${serieName}`})
-//   console.log(data)
-// }
-
-function generateRandomNumber(): number {
+export function generateRandomNumber(): number {
   return Math.floor(Math.random() * (8 - 1 + 1)) + 1;
 }

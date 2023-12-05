@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { PokemonTCG } from "pokemon-tcg-sdk-typescript";
+import {POKEMONTCG_API_KEY} from "@env";
 
 export type ResponseItem = {
     id: string;
@@ -17,16 +18,19 @@ export type Response = ResponseItem[];
 export const useGetSets = () => {
     return useQuery<PokemonTCG.Set[]>({
         queryKey: ["sets"],
-        queryFn: PokemonTCG.getAllSets,
+        queryFn: () => fetch('https://api.pokemontcg.io/v2/sets', { headers: new Headers({ 'x-api-key': POKEMONTCG_API_KEY }) })
+          .then((res) => res.json())
+          .then((res) => res.data),
     });
 };
 
 export const useGetSetsBySerieName = (search: string) => {
+    console.log(`series:${search}`)
     return useQuery<PokemonTCG.Set[]>({
         queryKey: ["setsBySerie"],
-        queryFn: () => PokemonTCG.findSetsByQueries({
-            q: `series: ${search}`
-        }),
+        queryFn: () => fetch(`https://api.pokemontcg.io/v2/sets?q=series:${search}`, { headers: new Headers({ 'x-api-key': POKEMONTCG_API_KEY }) })
+          .then((res) => res.json())
+          .then((res) => res.data),
         enabled: search.length > 0
     });
 };
