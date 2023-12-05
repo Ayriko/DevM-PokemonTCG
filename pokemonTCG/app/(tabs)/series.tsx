@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   ImageBackground, Pressable
 } from 'react-native'
-import React, {useState} from 'react'
-import {useGetSets, useGetSetsBySerieName} from '../hooks/useGetSets'
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import {PokemonTCG} from 'pokemon-tcg-sdk-typescript'
-import {LinearGradient} from 'expo-linear-gradient';
-import {CustomFont} from "../components/customFont";
+import React, { useState } from 'react'
+import { useGetSets, useGetSetsBySerieName } from '../../hooks/useGetSets'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { PokemonTCG } from 'pokemon-tcg-sdk-typescript'
+import { LinearGradient } from 'expo-linear-gradient';
+import { CustomFont } from "../../components/customFont";
 import { Link } from 'expo-router'
 
 // Create a client
@@ -24,7 +24,7 @@ export default function App() {
   return (
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
-      <Series/>
+      <Series />
     </QueryClientProvider>
   )
 }
@@ -34,19 +34,19 @@ interface SetMap {
 }
 
 const image = [
-  require('./../assets/bg_pokemon_1.png'),
-  require('./../assets/bg_pokemon_2.png'),
-  require('./../assets/bg_pokemon_3.png'),
-  require('./../assets/bg_pokemon_4.png'),
-  require('./../assets/bg_pokemon_5.png'),
-  require('./../assets/bg_pokemon_6.png'),
-  require('./../assets/bg_pokemon_7.png'),
-  require('./../assets/bg_pokemon_8.png')
+  require('./../../assets/bg_pokemon_1.png'),
+  require('./../../assets/bg_pokemon_2.png'),
+  require('./../../assets/bg_pokemon_3.png'),
+  require('./../../assets/bg_pokemon_4.png'),
+  require('./../../assets/bg_pokemon_5.png'),
+  require('./../../assets/bg_pokemon_6.png'),
+  require('./../../assets/bg_pokemon_7.png'),
+  require('./../../assets/bg_pokemon_8.png')
 ]
 
 function Series() {
   const [search, setSearch] = useState("")
-  const {data} = useGetSets()
+  const { data } = useGetSets()
   // const {data: searchData} = useGetSetsBySerieName(search)
   const listOfSetsFiltered: PokemonTCG.Set[] | undefined = data?.filter((set) => set.series !== 'Other' && set.series !== 'POP' && set.series !== 'E-Card' && set.series !== 'NP')
   const listOfSetsBySeries: SetMap | undefined = listOfSetsFiltered?.reduce((acc: SetMap, curr) => {
@@ -112,49 +112,49 @@ function Series() {
       {listOfSetsBySeries && (
         <FlatList
           data={Object.keys(listOfSetsBySeries)}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <View key={item}>
               <Link href={{
                 pathname: "/sets",
-                params: {setName: item}
+                params: { setName: item }
               }} asChild>
-              <TouchableOpacity>
-                <View style={styles.item}>
-                  <ImageBackground
-                    imageStyle={{borderRadius: 20}} source={image[generateRandomNumber() - 1]} resizeMode="cover"
-                    style={styles.bg_image}>
-                    <LinearGradient
-                      start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
-                      colors={['rgba(0,0,0,0.8)', 'transparent']} style={{
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      height: '100%',
-                      flex: 1,
-                      borderRadius: 20,
-                      paddingHorizontal: 10,
-                    }}/>
-                    <View style={styles.textAndSymbolContainer}>
-                      <CustomFont font={'Poppins'} style={styles.textContainer}>{item}</CustomFont>
-                      <View style={styles.symbolContainer}>
-                        <FlatList
-                          horizontal
-                          data={listOfSetsBySeries[item].slice(0, 3)}
-                          renderItem={({item}) => (
-                            <Image
-                              style={styles.image}
-                              resizeMode="contain"
-                              source={{uri: item.images.symbol || 'default.png'}}
-                            />
-                          )}
-                          keyExtractor={item => item.id}
-                        />
+                <TouchableOpacity>
+                  <View style={styles.item}>
+                    <ImageBackground
+                      imageStyle={{ borderRadius: 20 }} source={image[generateRandomNumber() - 1]} resizeMode="cover"
+                      style={styles.bg_image}>
+                      <LinearGradient
+                        start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }}
+                        colors={['rgba(0,0,0,0.8)', 'transparent']} style={{
+                          position: 'absolute',
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          height: '100%',
+                          flex: 1,
+                          borderRadius: 20,
+                          paddingHorizontal: 10,
+                        }} />
+                      <View style={styles.textAndSymbolContainer}>
+                        <CustomFont font={'Poppins'} style={styles.textContainer}>{item}</CustomFont>
+                        <View style={styles.symbolContainer}>
+                          <FlatList
+                            horizontal
+                            data={listOfSetsBySeries[item].slice(0, 3)}
+                            renderItem={({ item }) => (
+                              <Image
+                                style={styles.image}
+                                resizeMode="contain"
+                                source={{ uri: item.images.symbol || 'default.png' }}
+                              />
+                            )}
+                            keyExtractor={item => item.id}
+                          />
+                        </View>
                       </View>
-                    </View>
-                  </ImageBackground>
-                </View>
-              </TouchableOpacity>
+                    </ImageBackground>
+                  </View>
+                </TouchableOpacity>
               </Link>
             </View>
           )}

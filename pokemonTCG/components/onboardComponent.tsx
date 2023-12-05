@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
-import Animated, { BounceOutUp, PinwheelIn } from 'react-native-reanimated';
+import Animated, { PinwheelIn } from 'react-native-reanimated';
 
 export const OnboardComponent = () => {
   return (

@@ -13,7 +13,7 @@ import React from "react";
 import {useGetSetsBySerieName} from "../hooks/useGetSets";
 import {LinearGradient} from "expo-linear-gradient";
 import {CustomFont} from "./customFont";
-import {generateRandomNumber} from "../app/series";
+import {generateRandomNumber} from "../app/(tabs)/series";
 
 const image = [
   require('./../assets/bg_pokemon_1.png'),
