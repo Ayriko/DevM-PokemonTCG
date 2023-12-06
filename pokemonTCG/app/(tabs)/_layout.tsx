@@ -35,6 +35,13 @@ export default function TabLayout() {
               href: null
             }}
           />
+          <Tabs.Screen
+            name="cardDetail"
+            options={{
+              title: "CardDetail",
+              href: null
+            }}
+          />
             {/* <Tabs.Screen
                 name="cardsList"
                 options={{

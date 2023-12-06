@@ -37,8 +37,11 @@ export const test = () => {
 
 export const useGetCardById = (id: string) => {
     return useQuery<PokemonTCG.Card>({
-        queryKey: ["cardById"],
-        queryFn: () => PokemonTCG.findCardByID(id),
+        queryKey: ["cardById", id],
+        queryFn: () => fetch(`https://api.pokemontcg.io/v2/cards?q=id:${id}`, { headers: new Headers({ 'x-api-key': POKEMONTCG_API_KEY }) })
+          .then((res) => res.json())
+          .then((res) => res.data),
+        enabled: id.length > 0
     })
 }
 

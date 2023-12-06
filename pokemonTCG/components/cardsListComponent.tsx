@@ -10,8 +10,6 @@ import {
   View
 } from "react-native";
 import {useGetCardBySet} from "../hooks/useGetCards";
-import {generateRandomNumber} from "../app/(tabs)/series";
-import {LinearGradient} from "expo-linear-gradient";
 import React from "react";
 
 export const CardsListComponent = () => {
@@ -49,6 +47,10 @@ export const CardsListComponent = () => {
           numColumns={2}
           renderItem={({item}) => (
             <View key={item.id}>
+              <Link href={{
+                pathname: "/cardDetail",
+                params: { cardId: item.id }
+              }} asChild>
                 <TouchableOpacity onPress={() => console.log(item.id)}>
                   <View style={styles.item}>
                       <Image
@@ -58,6 +60,7 @@ export const CardsListComponent = () => {
                       />
                   </View>
                 </TouchableOpacity>
+              </Link>
             </View>
           )}
           keyExtractor={item => item.id}
