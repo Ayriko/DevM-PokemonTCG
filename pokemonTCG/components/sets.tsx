@@ -1,4 +1,4 @@
-import {Link, useLocalSearchParams, useNavigation, useRouter} from "expo-router";
+import { Link, useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import {
   FlatList, Image,
   ImageBackground,
@@ -29,6 +29,8 @@ export const SetsComponent = () => {
   const params = useLocalSearchParams() as { setName: string };
   console.log(params)
   const {data: setBySerie} = useGetSetsBySerieName(params.setName)
+
+  console.log(setBySerie?.map((s) => s.id))
 
   const styles = StyleSheet.create({
     container: {
@@ -83,7 +85,7 @@ export const SetsComponent = () => {
       {setBySerie && (
         <FlatList
           data={setBySerie}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <View key={item.id}>
               <Link href={{
                 pathname: "/cardsList",
@@ -92,26 +94,26 @@ export const SetsComponent = () => {
               <TouchableOpacity>
                 <View style={styles.item}>
                   <ImageBackground
-                    imageStyle={{borderRadius: 20}} source={image[generateRandomNumber() -1]} resizeMode="cover"
+                    imageStyle={{ borderRadius: 20 }} source={image[generateRandomNumber() - 1]} resizeMode="cover"
                     style={styles.bg_image}>
                     <LinearGradient
-                      start={{x: 0, y: 0.5}} end={{x: 1, y: 0.5}}
+                      start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }}
                       colors={['rgba(0,0,0,0.8)', 'transparent']} style={{
-                      position: 'absolute',
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      height: '100%',
-                      flex: 1,
-                      borderRadius: 20,
-                      paddingHorizontal: 10,
-                    }}/>
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        height: '100%',
+                        flex: 1,
+                        borderRadius: 20,
+                        paddingHorizontal: 10,
+                      }} />
                     <View style={styles.textAndSymbolContainer}>
-                        <Image
-                          style={{width: '100%', height: '50%', borderRadius: 20}}
-                          resizeMode="contain"
-                          source={{uri: item.images.logo || 'default.png'}}
-                        />
+                      <Image
+                        style={{ width: '100%', height: '50%', borderRadius: 20 }}
+                        resizeMode="contain"
+                        source={{ uri: item.images.logo || 'default.png' }}
+                      />
                     </View>
                   </ImageBackground>
                 </View>

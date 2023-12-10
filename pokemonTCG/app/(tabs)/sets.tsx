@@ -1,13 +1,8 @@
-import {View} from "react-native";
-import {SetsComponent} from "../../components/sets";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-const queryClient = new QueryClient()
+import { SetsComponent } from "../../components/sets";
 
 export default function Sets() {
-    return (
-      <QueryClientProvider client={queryClient}>
-          <SetsComponent />
-      </QueryClientProvider>
-    );
+  return (
+    <SetsComponent />
+  );
 };

@@ -1,6 +1,10 @@
 import { useFonts } from 'expo-font';
 import { preventAutoHideAsync } from 'expo-splash-screen';
 import { Stack } from 'expo-router';
+import { QueryClient, QueryClientProvider, } from '@tanstack/react-query';
+
+// Create a client
+const queryClient = new QueryClient()
 
 preventAutoHideAsync();
 
@@ -15,6 +19,8 @@ export default function StackLayout() {
     }
 
     return (
-        <Stack screenOptions={{ headerShown: false }} />
+        <QueryClientProvider client={queryClient}>
+            <Stack screenOptions={{ headerShown: false }} />
+        </QueryClientProvider>
     )
 }
