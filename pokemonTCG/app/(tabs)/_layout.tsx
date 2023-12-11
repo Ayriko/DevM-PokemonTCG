@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native'
 
 export default function TabLayout() {
     return (
-        <Tabs>
+        <Tabs screenOptions={{ headerShown: false }}>
             <Tabs.Screen
                 name="series"
                 options={{
@@ -25,20 +25,21 @@ export default function TabLayout() {
             name="sets"
             options={{
               title: "Sets",
+              headerShown: true,
               href: null
             }}
           />
           <Tabs.Screen
             name="cardsList"
             options={{
-              title: "CardsList",
+              title: "Cards List",
+              headerShown: true,
               href: null
             }}
           />
           <Tabs.Screen
             name="cardDetail"
             options={{
-              title: "CardDetail",
               href: null
             }}
           />

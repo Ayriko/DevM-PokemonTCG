@@ -16,29 +16,6 @@ export const CardsListComponent = () => {
   const params = useLocalSearchParams() as { setId: string };
   const { data: cardsBySet} = useGetCardBySet(params.setId)
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: "center",
-      marginTop: StatusBar.currentHeight || 0,
-    },
-    item: {
-      marginVertical: 8,
-      marginHorizontal: 2,
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: 260,
-      width: 188,
-      overflow: 'hidden',
-    },
-    image: {
-      margin: 5,
-      height: 50,
-      width: 200,
-    }
-  });
-
   return (
     <SafeAreaView style={styles.container}>
       {cardsBySet && (
@@ -69,3 +46,26 @@ export const CardsListComponent = () => {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: "center",
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    marginVertical: 8,
+    marginHorizontal: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 260,
+    width: 188,
+    overflow: 'hidden',
+  },
+  image: {
+    margin: 5,
+    height: 50,
+    width: 200,
+  }
+});
