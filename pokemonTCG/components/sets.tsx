@@ -32,54 +32,6 @@ export const SetsComponent = () => {
 
   console.log(setBySerie?.map((s) => s.id))
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: "center",
-      marginTop: StatusBar.currentHeight || 0,
-    },
-    item: {
-      marginVertical: 8,
-      marginHorizontal: 16,
-      borderRadius: 20,
-      flexDirection: 'row',
-      alignItems: 'center',
-      height: 120,
-      overflow: 'hidden',
-    },
-    title: {
-      fontSize: 32,
-    },
-    textAndSymbolContainer: {
-      flex: 1, // Utilise tout l'espace disponible entre le texte et les symboles
-      marginLeft: 10,
-      justifyContent: 'center', // Pour aligner le texte et les symboles verticalement
-    },
-    textContainer: {
-      fontFamily: 'Poppins',
-      color: 'white',
-      fontSize: 28,
-      fontWeight: '600',
-    },
-    symbolContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: "flex-start",
-      marginTop: 10,
-      marginLeft: 160,
-    },
-    bg_image: {
-      flex: 1,
-      justifyContent: 'center',
-    },
-    image: {
-      margin: 5,
-      height: 50,
-      width: 200,
-    }
-  });
-
   return (
     <SafeAreaView style={styles.container}>
       {setBySerie && (
@@ -127,3 +79,51 @@ export const SetsComponent = () => {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: "center",
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 120,
+    overflow: 'hidden',
+  },
+  title: {
+    fontSize: 32,
+  },
+  textAndSymbolContainer: {
+    flex: 1, // Utilise tout l'espace disponible entre le texte et les symboles
+    marginLeft: 10,
+    justifyContent: 'center', // Pour aligner le texte et les symboles verticalement
+  },
+  textContainer: {
+    fontFamily: 'Poppins',
+    color: 'white',
+    fontSize: 28,
+    fontWeight: '600',
+  },
+  symbolContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: "flex-start",
+    marginTop: 10,
+    marginLeft: 160,
+  },
+  bg_image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  image: {
+    margin: 5,
+    height: 50,
+    width: 200,
+  }
+});
