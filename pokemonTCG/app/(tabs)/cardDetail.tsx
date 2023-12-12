@@ -1,5 +1,4 @@
-import {View} from "react-native";
-import {SetsComponent} from "../../components/sets";
+import React from 'react'
 import {CardDetailComponent} from "../../components/cardDetailComponent";
 
 export default function CardDetail() {

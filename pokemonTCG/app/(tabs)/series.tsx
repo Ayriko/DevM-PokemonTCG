@@ -6,10 +6,10 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ImageBackground, Pressable
+  ImageBackground
 } from 'react-native'
-import React, { useState } from 'react'
-import { useGetSets, useGetSetsBySerieName } from '../../hooks/useGetSets'
+import React from 'react'
+import { useGetSets } from '../../hooks/useGetSets'
 import { PokemonTCG } from 'pokemon-tcg-sdk-typescript'
 import { LinearGradient } from 'expo-linear-gradient';
 import { CustomFont } from "../../components/customFont";
@@ -39,7 +39,6 @@ const image = [
 
 function Series() {
   const { data } = useGetSets()
-  // const {data: searchData} = useGetSetsBySerieName(search)
   
   const listOfSeriesFiltered: PokemonTCG.Set[] | undefined = data?.filter(
     (set) =>

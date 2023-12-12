@@ -1,4 +1,4 @@
-import {FlatList, Image, SafeAreaView, StatusBar, StyleSheet, Text, View} from "react-native";
+import { Image, SafeAreaView, StatusBar, StyleSheet, Text, View} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useGetCardById } from "../hooks/useGetCards";
 import React from "react";

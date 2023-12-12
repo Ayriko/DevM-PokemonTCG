@@ -1,11 +1,10 @@
-import { Link, useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { Link, useLocalSearchParams } from "expo-router";
 import {
   FlatList, Image,
   ImageBackground,
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from "react-native";

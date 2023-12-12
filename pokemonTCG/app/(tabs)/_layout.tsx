@@ -43,20 +43,6 @@ export default function TabLayout() {
               href: null
             }}
           />
-            {/* <Tabs.Screen
-                name="cardsList"
-                options={{
-                    title: "Cards list",
-                    tabBarIcon: (tabInfo) => {
-                        return (
-                            <Image
-                                style={styles.image}
-                                source={require('./../assets/icon_cards.png')}
-                            />
-                        )
-                    },
-                }}
-            /> */}
         </Tabs>
     );
 }

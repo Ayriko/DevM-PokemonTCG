@@ -1,7 +1,7 @@
 import {Link, useLocalSearchParams} from "expo-router";
 import {
-  FlatList, Image,
-  ImageBackground,
+  FlatList, 
+  Image,
   SafeAreaView,
   StatusBar,
   StyleSheet,
