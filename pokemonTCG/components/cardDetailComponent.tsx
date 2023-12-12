@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, StatusBar, StyleSheet, Text, View} from "react-native";
+import { Image, SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useGetCardById } from "../hooks/useGetCards";
 import React from "react";
@@ -50,35 +50,53 @@ export const CardDetailComponent = () => {
   const typeIcon = typeIcons[cardById.types?.[0] ?? 'Colorless'];
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+    <ScrollView contentContainerStyle={styles.contentContainerStyle}>
       <SafeAreaView style={styles.container}>
-        <Svg style={styles.svg} width="100%" height="30%" viewBox="0 0 100 50">
+        <Svg width="100%" height="100%">
           <Circle
             cx="50%"
-            cy="15%"
+            cy="10%"
             r="70%"
             fill={typeIcon.color}
           />
+          <View style={styles.iconContainer}>
+            <Image
+              style={styles.icon}
+              source={typeIcon.icon}
+            />
+          </View>
         </Svg>
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={typeIcon.icon}
-          />
-        </View>
-        <View style={styles.item}>
-          <Image
-            style={styles.image}
-            resizeMode="contain"
-            source={{ uri: cardById?.images?.large || 'default.png' }}
-          />
-        </View>
       </SafeAreaView>
-      <View style={{ paddingLeft: 16 }}>
+      <View style={styles.item}>
+        <Image
+          style={styles.image}
+          resizeMode="contain"
+          source={{ uri: cardById?.images?.large }}
+        />
+      </View>
+      <View style={styles.desc}>
         <CustomFont font={'Poppins'} style={styles.name}>{cardById.name}</CustomFont>
-        <Text>
+        <Text style={styles.texte}>
+          Made by {cardById.artist}
+        </Text>
+        <Text style={styles.texte}>
           {cardById.flavorText}
         </Text>
+        <Text style={{ paddingTop: 10, fontWeight: 'bold'}}>
+          Attacks and abilities :
+        </Text>
+        <View style={styles.texte}>
+          {cardById.abilities?.map((ability) => (
+            <View style={styles.texte} key={ability.name}>
+              <Text>{ability.name} : {ability.text}</Text>
+            </View>
+          ))}
+          {cardById.attacks?.map((attack) => (
+            <View style={styles.texte} key={attack.name}>
+              <Text>{attack.name} : {attack.text}</Text>
+            </View>
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
@@ -86,38 +104,41 @@ export const CardDetailComponent = () => {
 
 
 const styles = StyleSheet.create({
-  scrollViewContainer: {
+  contentContainerStyle: {
     flexGrow: 1,
+    justifyContent: 'space-between'
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: StatusBar.currentHeight ?? 0,
-  },
-  svg: {
-    position: 'absolute',
-    top: 0,
+    bottom: 50
   },
   iconContainer: {
-    top: 10,
+    padding: 90,
+    alignItems: 'center'
   },
   icon: {
     width: 80,
     height: 80,
   },
-  name: {
-    marginBottom: 8,
-    fontSize: 25,
-  },
   item: {
-    borderRadius: 20,
-    width: '125%',
-    aspectRatio: 1,
+    alignItems: 'center',
+    top: -50
   },
   image: {
-    width: '100%',
-    height: '100%',
-    marginTop: 25
+    width: 500,
+    height: 500,
   },
+  name: {
+    fontSize: 25,
+  },
+  texte: {
+    paddingTop: 10
+  },
+  desc: {
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15
+  }
 });
