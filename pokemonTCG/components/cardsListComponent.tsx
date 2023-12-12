@@ -36,7 +36,7 @@ export const CardsListComponent = () => {
                 pathname: "/cardDetail",
                 params: { cardId: item.id }
               }} asChild>
-                <TouchableOpacity onPress={() => console.log(item.id)}>
+                <TouchableOpacity>
                   <View style={styles.item}>
                       <Image
                         style={{width: '100%', height: '100%', borderRadius: 20}}

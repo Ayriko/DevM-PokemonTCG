@@ -27,10 +27,7 @@ const image = [
 
 export const SetsComponent = () => {
   const params = useLocalSearchParams() as { setName: string };
-  console.log(params)
   const {data: setBySerie} = useGetSetsBySerieName(params.setName)
-
-  console.log(setBySerie?.map((s) => s.id))
 
   return (
     <SafeAreaView style={styles.container}>

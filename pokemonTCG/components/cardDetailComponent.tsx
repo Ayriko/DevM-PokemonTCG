@@ -1,4 +1,4 @@
-import { Image, SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import {FlatList, Image, SafeAreaView, StatusBar, StyleSheet, Text, View} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useGetCardById } from "../hooks/useGetCards";
 import React from "react";
@@ -9,23 +9,6 @@ import { ScrollView } from "react-native-gesture-handler";
 export const CardDetailComponent = () => {
   const params = useLocalSearchParams() as { cardId: string };
   const { data: cardById, isLoading } = useGetCardById(params.cardId);
-
-  console.log(cardById);
-  const magikarp = {
-    name: 'Magikarp',
-    types: ['Water'],
-    id: '1',
-    set: {
-      name: "Paldea Evolved",
-      series: "Scarlet & Violet",
-    },
-    rarity: "Illustration Rare",
-    images: {
-      small: "https://images.pokemontcg.io/sv2/203.png",
-      large: "https://images.pokemontcg.io/sv2/203_hires.png",
-    },
-    flavorText: "It spits fire that is hot enough to melt boulders. It may cause forest fires by blowing flames."
-  };
 
   if (isLoading) {
     return (
@@ -45,10 +28,10 @@ export const CardDetailComponent = () => {
 
   const typeIcons: Record<string, { icon: any; color: string }> = {
     Water: { icon: require('../assets/icons/water.png'), color: '#3498db' },
-    Plant: { icon: require('../assets/icons/plant.png'), color: '#63BC5A' },
+    Grass: { icon: require('../assets/icons/plant.png'), color: '#63BC5A' },
     Fire: { icon: require('../assets/icons/fire.png'), color: '#FF9D55' },
-    Electric: { icon: require('../assets/icons/electric.png'), color: '#F4D23C' },
-    Normal: { icon: require('../assets/icons/normal.png'), color: '#919AA2' },
+    Lightning: { icon: require('../assets/icons/electric.png'), color: '#F4D23C' },
+    Colorless: { icon: require('../assets/icons/normal.png'), color: '#919AA2' },
     Flying: { icon: require('../assets/icons/flying.png'), color: '#89AAE3' },
     Fighting: { icon: require('../assets/icons/fighting.png'), color: '#CE416B' },
     Poison: { icon: require('../assets/icons/poison.png'), color: '#B567CE' },
@@ -56,15 +39,15 @@ export const CardDetailComponent = () => {
     Rock: { icon: require('../assets/icons/rock.png'), color: '#C5B78C' },
     Bug: { icon: require('../assets/icons/bug.png'), color: '#91C12F' },
     Ghost: { icon: require('../assets/icons/ghost.png'), color: '#5269AD' },
-    Steel: { icon: require('../assets/icons/steel.png'), color: '#5A8EA2' },
+    Metal: { icon: require('../assets/icons/steel.png'), color: '#5A8EA2' },
     Dragon: { icon: require('../assets/icons/dragon.png'), color: '#0B6DC3' },
     Fairy: { icon: require('../assets/icons/fairy.png'), color: '#EC8FE6' },
     Ice: { icon: require('../assets/icons/ice.png'), color: '#73CEC0' },
     Psychic: { icon: require('../assets/icons/psychic.png'), color: '#FA7179' },
-    Dark: { icon: require('../assets/icons/dark.png'), color: '#5A5465' },
+    Darkness: { icon: require('../assets/icons/dark.png'), color: '#5A5465' },
   };
 
-  const typeIcon = typeIcons[magikarp.types[0]];
+  const typeIcon = typeIcons[cardById.types?.[0] ?? 'Colorless'];
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -87,14 +70,14 @@ export const CardDetailComponent = () => {
           <Image
             style={styles.image}
             resizeMode="contain"
-            source={{ uri: magikarp?.images?.large || 'default.png' }}
+            source={{ uri: cardById?.images?.large || 'default.png' }}
           />
         </View>
       </SafeAreaView>
       <View style={{ paddingLeft: 16 }}>
-        <CustomFont font={'Pokemon-Solid'} style={styles.name}>{magikarp.name}</CustomFont>
+        <CustomFont font={'Poppins'} style={styles.name}>{cardById.name}</CustomFont>
         <Text>
-          {magikarp.flavorText}
+          {cardById.flavorText}
         </Text>
       </View>
     </ScrollView>
@@ -117,9 +100,7 @@ const styles = StyleSheet.create({
     top: 0,
   },
   iconContainer: {
-    position: 'absolute',
     top: 10,
-    zIndex: 2,
   },
   icon: {
     width: 80,
@@ -128,18 +109,15 @@ const styles = StyleSheet.create({
   name: {
     marginBottom: 8,
     fontSize: 25,
-    zIndex: 1,
   },
   item: {
     borderRadius: 20,
     width: '125%',
     aspectRatio: 1,
-    zIndex: 1
   },
   image: {
     width: '100%',
     height: '100%',
-    zIndex: 2,
     marginTop: 25
   },
 });
