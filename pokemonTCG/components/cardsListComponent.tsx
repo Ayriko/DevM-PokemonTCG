@@ -14,7 +14,15 @@ import React from "react";
 
 export const CardsListComponent = () => {
   const params = useLocalSearchParams() as { setId: string };
-  const { data: cardsBySet} = useGetCardBySet(params.setId)
+  const { data: cardsBySet, isLoading} = useGetCardBySet(params.setId)
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.load}>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,5 +75,11 @@ const styles = StyleSheet.create({
     margin: 5,
     height: 50,
     width: 200,
+  },
+  load: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: StatusBar.currentHeight ?? 0,
   }
 });

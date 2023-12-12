@@ -40,7 +40,7 @@ export const useGetCardById = (id: string) => {
         queryKey: ["cardById", id],
         queryFn: () => fetch(`https://api.pokemontcg.io/v2/cards?q=id:${id}`, { headers: new Headers({ 'x-api-key': POKEMONTCG_API_KEY }) })
           .then((res) => res.json())
-          .then((res) => res.data),
+          .then((res) => res.data?.[0]),
         enabled: id.length > 0
     })
 }

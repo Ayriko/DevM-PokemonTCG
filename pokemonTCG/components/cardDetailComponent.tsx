@@ -1,11 +1,10 @@
-import { FlatList, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
+import { Image, SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { useGetCardById } from "../hooks/useGetCards";
 import React from "react";
 import Svg, { Circle } from "react-native-svg";
-
-type Type = 'water';
-//customiser pour la couleur du fond, revoir le fill
+import { CustomFont } from "./customFont";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const CardDetailComponent = () => {
   const params = useLocalSearchParams() as { cardId: string };
@@ -14,7 +13,7 @@ export const CardDetailComponent = () => {
   console.log(cardById);
   const magikarp = {
     name: 'Magikarp',
-    types: 'water' as Type,
+    types: ['Water'],
     id: '1',
     set: {
       name: "Paldea Evolved",
@@ -25,6 +24,7 @@ export const CardDetailComponent = () => {
       small: "https://images.pokemontcg.io/sv2/203.png",
       large: "https://images.pokemontcg.io/sv2/203_hires.png",
     },
+    flavorText: "It spits fire that is hot enough to melt boulders. It may cause forest fires by blowing flames."
   };
 
   if (isLoading) {
@@ -43,63 +43,74 @@ export const CardDetailComponent = () => {
     );
   }
 
-  const typeIcons = {
-    water: require('../assets/icons/water.png'),
-    plant: require('../assets/icons/plant.png'),
-    fire: require('../assets/icons/fire.png'),
-    electric: require('../assets/icons/electric.png'),
-    normal: require('../assets/icons/normal.png'),
-    flying: require('../assets/icons/flying.png'),
-    fighting: require('../assets/icons/fighting.png'),
-    poison: require('../assets/icons/poison.png'),
-    ground: require('../assets/icons/ground.png'),
-    rock: require('../assets/icons/rock.png'),
-    bug: require('../assets/icons/bug.png'),
-    ghost: require('../assets/icons/ghost.png'),
-    steel: require('../assets/icons/steel.png'),
-    dragon: require('../assets/icons/dragon.png'),
-    fairy: require('../assets/icons/fairy.png'),
-    ice: require('../assets/icons/ice.png'),
-    psychic: require('../assets/icons/psychic.png'),
-    dark: require('../assets/icons/dark.png')
+  const typeIcons: Record<string, { icon: any; color: string }> = {
+    Water: { icon: require('../assets/icons/water.png'), color: '#3498db' },
+    Plant: { icon: require('../assets/icons/plant.png'), color: '#63BC5A' },
+    Fire: { icon: require('../assets/icons/fire.png'), color: '#FF9D55' },
+    Electric: { icon: require('../assets/icons/electric.png'), color: '#F4D23C' },
+    Normal: { icon: require('../assets/icons/normal.png'), color: '#919AA2' },
+    Flying: { icon: require('../assets/icons/flying.png'), color: '#89AAE3' },
+    Fighting: { icon: require('../assets/icons/fighting.png'), color: '#CE416B' },
+    Poison: { icon: require('../assets/icons/poison.png'), color: '#B567CE' },
+    Ground: { icon: require('../assets/icons/ground.png'), color: '#D97845' },
+    Rock: { icon: require('../assets/icons/rock.png'), color: '#C5B78C' },
+    Bug: { icon: require('../assets/icons/bug.png'), color: '#91C12F' },
+    Ghost: { icon: require('../assets/icons/ghost.png'), color: '#5269AD' },
+    Steel: { icon: require('../assets/icons/steel.png'), color: '#5A8EA2' },
+    Dragon: { icon: require('../assets/icons/dragon.png'), color: '#0B6DC3' },
+    Fairy: { icon: require('../assets/icons/fairy.png'), color: '#EC8FE6' },
+    Ice: { icon: require('../assets/icons/ice.png'), color: '#73CEC0' },
+    Psychic: { icon: require('../assets/icons/psychic.png'), color: '#FA7179' },
+    Dark: { icon: require('../assets/icons/dark.png'), color: '#5A5465' },
   };
 
-  const typeIcon = typeIcons[magikarp.types];
+  const typeIcon = typeIcons[magikarp.types[0]];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Svg style={styles.svg} width="100%" height="30%" viewBox="0 0 100 50">
-        <Circle
-          cx="50%"
-          cy="0%"
-          r="65%"
-          fill={magikarp.types === 'water' ? '#add8e6' : 'gray'}
-        />
-      </Svg>
-      <View style={styles.iconContainer}>
-        <Image
-          style={styles.icon}
-          source={typeIcon}
-        />
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+      <SafeAreaView style={styles.container}>
+        <Svg style={styles.svg} width="100%" height="30%" viewBox="0 0 100 50">
+          <Circle
+            cx="50%"
+            cy="15%"
+            r="70%"
+            fill={typeIcon.color}
+          />
+        </Svg>
+        <View style={styles.iconContainer}>
+          <Image
+            style={styles.icon}
+            source={typeIcon.icon}
+          />
+        </View>
+        <View style={styles.item}>
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={{ uri: magikarp?.images?.large || 'default.png' }}
+          />
+        </View>
+      </SafeAreaView>
+      <View style={{ paddingLeft: 16 }}>
+        <CustomFont font={'Pokemon-Solid'} style={styles.name}>{magikarp.name}</CustomFont>
+        <Text>
+          {magikarp.flavorText}
+        </Text>
       </View>
-      <Text style={styles.name}>{magikarp.name}</Text>
-      <View style={styles.item}>
-        <Image
-          style={styles.image}
-          resizeMode="contain"
-          source={{ uri: magikarp?.images?.large || 'default.png' }}
-        />
-      </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
+
 const styles = StyleSheet.create({
+  scrollViewContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: StatusBar.currentHeight || 0,
+    marginTop: StatusBar.currentHeight ?? 0,
   },
   svg: {
     position: 'absolute',
@@ -115,16 +126,11 @@ const styles = StyleSheet.create({
     height: 80,
   },
   name: {
-    marginTop: 10,
     marginBottom: 8,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
+    fontSize: 25,
     zIndex: 1,
   },
   item: {
-    marginVertical: 8,
-    overflow: 'hidden',
     borderRadius: 20,
     width: '125%',
     aspectRatio: 1,
@@ -133,6 +139,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    zIndex: 2
+    zIndex: 2,
+    marginTop: 25
   },
 });
